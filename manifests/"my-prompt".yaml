@@ -1,0 +1,23 @@
+apiVersion: mcp.io/v1
+kind: Prompt
+metadata:
+  name: my-prompt
+  namespace: default
+spec:
+  template: Super cool prompt
+  owner:
+    identifier: example_team
+    title: Example Team
+    blueprint: _team
+    properties:
+      description: null
+      size: 1
+      lead_time_for_change: null
+    relations:
+      group: null
+      git_hub_team: null
+    createdAt: "2025-07-21T15:10:55.962Z"
+    createdBy: hvft0KZGj4n03fNQjp9rDj0OaSimKx7H
+    updatedAt: "2025-08-18T07:56:18.237Z"
+    updatedBy: hvft0KZGj4n03fNQjp9rDj0OaSimKx7H
+  description: a test prompt
