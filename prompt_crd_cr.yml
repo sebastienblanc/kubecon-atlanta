@@ -1,0 +1,136 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: prompts.mcp.io
+  labels:
+    app.kubernetes.io/name: prompt-crd
+    app.kubernetes.io/component: custom-resource-definition
+spec:
+  group: mcp.io
+  versions:
+  - name: v1
+    served: true
+    storage: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              description:
+                type: string
+                title: Description
+                description: Description of the prompt
+              arguments:
+                type: array
+                title: Arguments
+                description: List of arguments for the prompt
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: The name of the argument parameter
+                    description:
+                      type: string
+                      description: A description of what this argument is for
+                    required:
+                      type: boolean
+                      description: Whether this argument is required or optional
+                      default: false
+                  required:
+                  - name
+                  - description
+              template:
+                type: string
+                title: Prompt Template
+                description: The template content for the prompt in markdown format
+              status:
+                type: string
+                title: Status
+                description: The current status of the prompt
+                enum:
+                - stable
+                - experimental
+                - deprecated
+                default: stable
+              owner:
+                type: string
+                title: Owner
+                description: Team owning this prompt
+                pattern: "^[a-zA-Z0-9-_]+$"
+            required:
+            - description
+            - template
+          status:
+            type: object
+            properties:
+              phase:
+                type: string
+                enum:
+                - Pending
+                - Active
+                - Failed
+              message:
+                type: string
+              lastUpdated:
+                type: string
+                format: date-time
+    additionalPrinterColumns:
+    - name: Status
+      type: string
+      description: The status of the prompt
+      jsonPath: .spec.status
+    - name: Owner
+      type: string
+      description: The team that owns this prompt
+      jsonPath: .spec.owner
+    - name: Age
+      type: date
+      jsonPath: .metadata.creationTimestamp
+    subresources:
+      status: {}
+  scope: Namespaced
+  names:
+    plural: prompts
+    singular: prompt
+    kind: Prompt
+    shortNames:
+    - pmt
+---
+# Example Prompt resource
+apiVersion: mcp.io/v1
+kind: Prompt
+metadata:
+  name: code-review-prompt
+  namespace: default
+spec:
+  description: "A prompt template for conducting code reviews with AI assistance"
+  status: stable
+  owner: platform_team
+  template: |
+    # Code Review Prompt
+    
+    Please review the following code changes:
+    
+    **File**: {{file_path}}
+    **Changes**: {{changes}}
+    
+    Focus on:
+    - Code quality and best practices
+    - Security considerations
+    - Performance implications
+    - Maintainability
+    
+    Provide specific feedback and suggestions for improvement.
+  arguments:
+    - name: file_path
+      description: The path to the file being reviewed
+      required: true
+    - name: changes
+      description: The code changes to be reviewed
+      required: true
+    - name: focus_areas
+      description: Specific areas to focus the review on
+      required: false
