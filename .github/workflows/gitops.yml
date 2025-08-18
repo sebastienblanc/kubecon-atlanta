@@ -24,7 +24,7 @@ on:
       folder:
         required: true
         description: Folder where the resource will be stored
-        default: "./argocd-apps/control-plane/manifests"
+        default: "./manifests"
         type: string
 
 jobs:
