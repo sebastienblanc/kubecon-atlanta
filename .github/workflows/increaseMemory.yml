@@ -11,6 +11,10 @@ on:
         description: "New memory limit (e.g. 512Mi, 1Gi)"
         required: true
         type: string
+      runId:
+        required: true
+        description: "Port's Run ID"
+        type: string
 
 jobs:
   update-deployment:
@@ -46,3 +50,25 @@ jobs:
           git add manifests/${{ github.event.inputs.deployment }}.yaml
           git commit -m "chore: update memory limit for ${{ github.event.inputs.deployment }} to ${{ github.event.inputs.memory }}" || echo "No changes to commit"
           git push
+        - uses: port-labs/port-github-action@v1
+        if: success()
+        with:
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          operation: PATCH_RUN
+          runId: ${{inputs.runId}} 
+          icon: GithubActions
+          logMessage: "Increased memory succesfully ✅"
+      - uses: port-labs/port-github-action@v1
+        if: failure()
+        with:
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          operation: PATCH_RUN
+          runId: ${{inputs.runId}} 
+          icon: GithubActions
+          logMessage: | 
+            Failed to increase memory ❌
+            Check the job run logs in Github to learn more 📜:
+              ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          
