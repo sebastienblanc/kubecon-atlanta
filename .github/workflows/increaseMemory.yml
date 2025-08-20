@@ -1,0 +1,48 @@
+name: Update Deployment Memory Limit
+
+on:
+  workflow_dispatch:
+    inputs:
+      deployment:
+        description: "Kubernetes deployment name (YAML file must exist in repo)"
+        required: true
+        type: string
+      memory:
+        description: "New memory limit (e.g. 512Mi, 1Gi)"
+        required: true
+        type: string
+
+jobs:
+  update-deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Update memory limit in deployment YAML
+        run: |
+          DEPLOYMENT=${{ github.event.inputs.deployment }}
+          MEMORY=${{ github.event.inputs.memory }}
+
+          FILE="k8s/${DEPLOYMENT}.yaml"
+
+          if [ ! -f "$FILE" ]; then
+            echo "Deployment file $FILE not found!"
+            exit 1
+          fi
+
+          echo "Updating memory limit in $FILE to $MEMORY"
+
+          # Use yq to update memory limit of first container
+          yq -i '
+            .spec.template.spec.containers[0].resources.limits.memory = strenv(MEMORY)
+          ' "$FILE"
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add k8s/${{ github.event.inputs.deployment }}.yaml
+          git commit -m "chore: update memory limit for ${{ github.event.inputs.deployment }} to ${{ github.event.inputs.memory }}" || echo "No changes to commit"
+          git push
