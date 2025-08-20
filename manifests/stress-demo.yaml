@@ -22,5 +22,5 @@ spec:
               memory: "64Mi"
               cpu: "50m"
             limits:
-              memory: "strenv(MEMORY)"
+              memory: "\"${MEMORY}\""
               cpu: "200m"
