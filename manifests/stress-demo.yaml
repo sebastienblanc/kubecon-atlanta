@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: stress-demo
 spec:
-  replicas: 4
+  replicas: 5
   selector:
     matchLabels:
       app: stress-demo
