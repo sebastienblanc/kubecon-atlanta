@@ -41,6 +41,7 @@ jobs:
           yq -i '
             .spec.template.spec.containers[0].resources.limits.memory = strenv(MEMORY)
           ' "$FILE"
+          
       - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
@@ -49,7 +50,7 @@ jobs:
           git add manifests/${{ github.event.inputs.deployment }}.yaml
           git commit -m "chore: update memory limit for ${{ github.event.inputs.deployment }} to ${{ github.event.inputs.memory }}" || echo "No changes to commit"
           git push
-        - uses: port-labs/port-github-action@v1
+      - uses: port-labs/port-github-action@v1
         if: success()
         with:
           clientId: ${{ secrets.PORT_CLIENT_ID }}
