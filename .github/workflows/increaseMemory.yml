@@ -39,9 +39,9 @@ jobs:
 
           # Use yq to update memory limit of first container
           yq -i '
-            .spec.template.spec.containers[0].resources.limits.memory = strenv(MEMORY)
+            .spec.template.spec.containers[0].resources.limits.memory = $MEMORY
           ' "$FILE"
-          
+
       - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
