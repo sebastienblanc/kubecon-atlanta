@@ -1,8 +1,0 @@
-metadata: {}
-apiVersion: mcp.io/v1
-kind: Prompt
-spec:
-  template: ccxzcxzczxczxczxc
-  owner: example_team
-  description: another test prompt
-  status: experimental
