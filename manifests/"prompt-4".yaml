@@ -1,0 +1,10 @@
+apiVersion: mcp.io/v1
+kind: Prompt
+metadata:
+  namespace: default
+  name: prompt-4
+spec:
+  template: czxczxccxzc
+  owner: example_team
+  description: a test prompt
+  status: experimental
