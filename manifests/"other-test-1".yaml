@@ -1,0 +1,10 @@
+metadata:
+  namespace: default
+  name: other-test-1
+apiVersion: mcp.io/v1
+kind: Prompt
+spec:
+  template: My template
+  owner: example_team
+  description: a test prompt
+  status: experimental
