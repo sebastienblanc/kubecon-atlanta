@@ -1,0 +1,18 @@
+apiVersion: platform.company.com/v1
+kind: WebApplication
+metadata:
+  name: example-prod-app
+  namespace: production
+spec:
+  environment: prod
+  replicaCount: 3
+  databaseSelector:
+    matchLabels:
+      type: postgres
+      environment: prod
+      tier: primary
+  cacheSelector:
+    matchLabels:
+      type: redis
+      environment: prod
+      cluster: "true"
