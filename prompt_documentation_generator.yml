@@ -1,0 +1,56 @@
+apiVersion: mcp.io/v1
+kind: Prompt
+metadata:
+  name: documentation-generator-prompt
+  namespace: default
+spec:
+  description: "Generate comprehensive technical documentation from code or specifications"
+  status: stable
+  owner: docs_team
+  template: |
+    # Documentation Generator
+    
+    Please generate comprehensive technical documentation for the following:
+    
+    **Component**: {{component_name}}
+    **Type**: {{doc_type}}
+    **Content**: {{source_content}}
+    
+    ## Requirements:
+    - Include clear overview and purpose
+    - Document all public APIs/interfaces
+    - Provide usage examples
+    - Include configuration options
+    - Add troubleshooting section
+    - Follow {{style_guide}} documentation standards
+    
+    ## Target Audience:
+    {{target_audience}}
+    
+    ## Additional Context:
+    {{additional_context}}
+    
+    Please ensure the documentation is:
+    - Clear and concise
+    - Well-structured with proper headings
+    - Includes practical examples
+    - Covers edge cases and limitations
+  arguments:
+    - name: component_name
+      description: Name of the component or system being documented
+      required: true
+    - name: doc_type
+      description: Type of documentation (API, User Guide, Architecture, etc.)
+      required: true
+    - name: source_content
+      description: Source code, specifications, or existing content to document
+      required: true
+    - name: style_guide
+      description: Documentation style guide to follow
+      required: false
+    - name: target_audience
+      description: Intended audience for the documentation
+      required: false
+    - name: additional_context
+      description: Any additional context or requirements
+      required: false

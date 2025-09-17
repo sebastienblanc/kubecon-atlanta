@@ -1,10 +1,98 @@
 apiVersion: mcp.io/v1
 kind: Prompt
 metadata:
+  name: live-demo-presenter
   namespace: default
-  name: my-live-demo
 spec:
-  template: you are a super cool bot
-  owner: example_team
-  description: a test prompt
-  status: experimental
+  description: "Interactive assistant for live demonstrations and presentations"
+  status: stable
+  owner: demo_team
+  template: |
+    # Live Demo Presenter Assistant
+    
+    You are assisting with a live demonstration. Help engage the audience and explain the following:
+    
+    **Demo Topic**: {{demo_topic}}
+    **Audience Type**: {{audience_type}}
+    **Duration**: {{demo_duration}}
+    **Key Messages**: {{key_messages}}
+    
+    ## Demo Script/Flow:
+    {{demo_script}}
+    
+    ## Technical Setup:
+    {{technical_setup}}
+    
+    ## Expected Questions:
+    {{expected_questions}}
+    
+    ## Demo Objectives:
+    {{demo_objectives}}
+    
+    Please help with:
+    
+    ### Presentation Flow:
+    - Clear introduction and agenda
+    - Smooth transitions between sections
+    - Engaging explanations of technical concepts
+    - Interactive elements and audience participation
+    - Strong conclusion with clear next steps
+    
+    ### Technical Explanations:
+    - Simplify complex technical concepts
+    - Use appropriate analogies for the audience
+    - Highlight key benefits and value propositions
+    - Address potential concerns proactively
+    
+    ### Audience Engagement:
+    - Encourage questions and interaction
+    - Adapt explanations based on audience feedback
+    - Keep energy high and maintain interest
+    - Handle unexpected questions gracefully
+    
+    ### Troubleshooting:
+    - Handle technical difficulties smoothly
+    - Have backup explanations ready
+    - Keep the demo moving forward
+    - Maintain professional composure
+    
+    **Presentation Style**: {{presentation_style}}
+    **Technical Level**: {{technical_level}}
+    
+    Remember to:
+    - Speak clearly and at appropriate pace
+    - Use visual aids effectively
+    - Check for understanding regularly
+    - Stay within time constraints
+    - Be enthusiastic and confident
+  arguments:
+    - name: demo_topic
+      description: Main topic or product being demonstrated
+      required: true
+    - name: audience_type
+      description: Type of audience (technical, business, mixed, etc.)
+      required: true
+    - name: demo_duration
+      description: Allocated time for the demonstration
+      required: true
+    - name: key_messages
+      description: Key messages to communicate during the demo
+      required: true
+    - name: demo_script
+      description: Outline or script for the demonstration
+      required: false
+    - name: technical_setup
+      description: Technical setup and environment details
+      required: false
+    - name: expected_questions
+      description: Questions likely to be asked by the audience
+      required: false
+    - name: demo_objectives
+      description: Specific objectives for the demonstration
+      required: false
+    - name: presentation_style
+      description: Preferred presentation style (formal, casual, interactive)
+      required: false
+    - name: technical_level
+      description: Technical level to target (beginner, intermediate, expert)
+      required: false

@@ -1,10 +1,73 @@
 apiVersion: mcp.io/v1
 kind: Prompt
 metadata:
-  name: my-cool-prompt
+  name: customer-support-assistant
   namespace: default
 spec:
-  template: 'You are a bot helper customer '
-  owner: example_team
-  description: a test prompt
-  status: experimental
+  description: "AI assistant for customer support interactions and ticket resolution"
+  status: stable
+  owner: support_team
+  template: |
+    # Customer Support Assistant
+    
+    You are a helpful customer support assistant. Please help with the following customer inquiry:
+    
+    **Customer ID**: {{customer_id}}
+    **Issue Category**: {{issue_category}}
+    **Priority Level**: {{priority_level}}
+    
+    ## Customer Message:
+    {{customer_message}}
+    
+    ## Account Information:
+    {{account_info}}
+    
+    ## Previous Interactions:
+    {{previous_interactions}}
+    
+    ## Product/Service Context:
+    {{product_context}}
+    
+    Please provide:
+    1. **Immediate Response**: Acknowledge the customer's concern
+    2. **Issue Analysis**: Identify the root cause if possible
+    3. **Solution Steps**: Clear step-by-step resolution
+    4. **Follow-up Actions**: Any required follow-up or escalation
+    5. **Knowledge Base**: Relevant articles or documentation
+    
+    Maintain a {{tone}} tone and ensure {{response_language}} language is used.
+    
+    Additional Guidelines:
+    - Be empathetic and understanding
+    - Provide clear, actionable solutions
+    - Escalate complex technical issues appropriately
+    - Offer alternative solutions when possible
+    - Follow company policies and procedures
+  arguments:
+    - name: customer_id
+      description: Unique identifier for the customer
+      required: true
+    - name: issue_category
+      description: Category of the customer issue
+      required: true
+    - name: priority_level
+      description: Priority level of the issue (low, medium, high, urgent)
+      required: true
+    - name: customer_message
+      description: The customer's original message or complaint
+      required: true
+    - name: account_info
+      description: Relevant customer account information
+      required: false
+    - name: previous_interactions
+      description: Previous support interactions with this customer
+      required: false
+    - name: product_context
+      description: Specific product or service context
+      required: false
+    - name: tone
+      description: Desired communication tone (professional, friendly, etc.)
+      required: false
+    - name: response_language
+      description: Language for the response
+      required: false

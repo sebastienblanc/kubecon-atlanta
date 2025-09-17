@@ -1,0 +1,119 @@
+apiVersion: mcp.io/v1
+kind: Prompt
+metadata:
+  name: incident-response-prompt
+  namespace: default
+spec:
+  description: "Guide incident response and post-mortem analysis"
+  status: stable
+  owner: sre_team
+  template: |
+    # Incident Response Assistant
+    
+    Help manage the following incident and guide response efforts:
+    
+    **Incident ID**: {{incident_id}}
+    **Severity**: {{incident_severity}}
+    **Affected Systems**: {{affected_systems}}
+    **Impact**: {{impact_description}}
+    **Reporter**: {{reporter}}
+    **Time Detected**: {{detection_time}}
+    
+    ## Incident Details:
+    {{incident_description}}
+    
+    ## Current Symptoms:
+    {{current_symptoms}}
+    
+    ## Initial Investigation:
+    {{initial_investigation}}
+    
+    ## System Health Data:
+    ```
+    {{system_health_data}}
+    ```
+    
+    ## Recent Changes:
+    {{recent_changes}}
+    
+    Please provide guidance on:
+    
+    ### Immediate Response (FIRE phase):
+    1. **Find**: Help locate the root cause
+    2. **Isolate**: Containment strategies
+    3. **Repair**: Immediate fix recommendations
+    4. **Escalate**: When and how to escalate
+    
+    ### Investigation Steps:
+    - Diagnostic commands and queries
+    - Log analysis strategies
+    - Monitoring data to examine
+    - Correlation analysis
+    - Timeline reconstruction
+    
+    ### Communication Plan:
+    - Status update frequency and channels
+    - Stakeholder notification strategy
+    - Customer communication templates
+    - Internal escalation paths
+    
+    ### Recovery Actions:
+    - Step-by-step recovery procedures
+    - Rollback strategies if needed
+    - Verification steps
+    - Service restoration validation
+    
+    ### Documentation:
+    - Key findings and timeline
+    - Actions taken and results
+    - Lessons learned
+    - Follow-up items
+    
+    ## Post-Incident Requirements:
+    - Root cause analysis framework
+    - Post-mortem meeting agenda
+    - Action items for prevention
+    - Process improvements
+    
+    **Incident Priority**: {{incident_priority}}
+    **Business Hours**: {{business_hours}}
+  arguments:
+    - name: incident_id
+      description: Unique identifier for the incident
+      required: true
+    - name: incident_severity
+      description: Severity level of the incident (P0, P1, P2, etc.)
+      required: true
+    - name: affected_systems
+      description: Systems or services affected by the incident
+      required: true
+    - name: impact_description
+      description: Description of the business/user impact
+      required: true
+    - name: reporter
+      description: Person or system that reported the incident
+      required: true
+    - name: detection_time
+      description: When the incident was first detected
+      required: true
+    - name: incident_description
+      description: Detailed description of the incident
+      required: true
+    - name: current_symptoms
+      description: Current observable symptoms and errors
+      required: false
+    - name: initial_investigation
+      description: Initial investigation findings
+      required: false
+    - name: system_health_data
+      description: Current system health metrics and logs
+      required: false
+    - name: recent_changes
+      description: Recent deployments or configuration changes
+      required: false
+    - name: incident_priority
+      description: Business priority level of the incident
+      required: false
+    - name: business_hours
+      description: Whether incident occurred during business hours
+      required: false

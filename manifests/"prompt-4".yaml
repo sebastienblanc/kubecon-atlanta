@@ -1,10 +1,113 @@
 apiVersion: mcp.io/v1
 kind: Prompt
 metadata:
+  name: data-analysis-prompt
   namespace: default
-  name: prompt-4
 spec:
-  template: czxczxccxzc
-  owner: example_team
-  description: a test prompt
-  status: experimental
+  description: "Analyze data and provide insights with visualizations and recommendations"
+  status: stable
+  owner: analytics_team
+  template: |
+    # Data Analysis Assistant
+    
+    Perform comprehensive data analysis on the following dataset:
+    
+    **Analysis Type**: {{analysis_type}}
+    **Dataset Name**: {{dataset_name}}
+    **Business Question**: {{business_question}}
+    **Time Period**: {{time_period}}
+    
+    ## Dataset Information:
+    {{dataset_info}}
+    
+    ## Data Sample:
+    ```
+    {{data_sample}}
+    ```
+    
+    ## Analysis Requirements:
+    {{analysis_requirements}}
+    
+    ## Business Context:
+    {{business_context}}
+    
+    Please provide:
+    
+    ### Data Quality Assessment:
+    - Missing values and data completeness
+    - Data type validation
+    - Outlier detection
+    - Data consistency checks
+    - Sampling bias evaluation
+    
+    ### Exploratory Data Analysis:
+    - Descriptive statistics summary
+    - Distribution analysis
+    - Correlation analysis
+    - Trend identification
+    - Pattern recognition
+    
+    ### Statistical Analysis:
+    - Hypothesis testing (if applicable)
+    - Confidence intervals
+    - Significance testing
+    - Regression analysis
+    - Time series analysis
+    
+    ### Business Insights:
+    - Key findings and trends
+    - Actionable recommendations
+    - Risk factors and opportunities
+    - Performance metrics
+    - Comparative analysis
+    
+    ### Visualizations:
+    - Chart type recommendations
+    - Dashboard design suggestions
+    - Interactive visualization ideas
+    - Presentation-ready graphics
+    
+    ### Next Steps:
+    - Further analysis recommendations
+    - Data collection improvements
+    - Model development opportunities
+    - Monitoring and tracking suggestions
+    
+    **Target Audience**: {{target_audience}}
+    **Complexity Level**: {{complexity_level}}
+    
+    Focus Areas: {{focus_areas}}
+  arguments:
+    - name: analysis_type
+      description: Type of analysis (descriptive, predictive, prescriptive, etc.)
+      required: true
+    - name: dataset_name
+      description: Name or identifier of the dataset
+      required: true
+    - name: business_question
+      description: Primary business question to answer
+      required: true
+    - name: time_period
+      description: Time period covered by the analysis
+      required: true
+    - name: dataset_info
+      description: Information about the dataset structure and source
+      required: true
+    - name: data_sample
+      description: Sample of the actual data to analyze
+      required: false
+    - name: analysis_requirements
+      description: Specific analysis requirements or constraints
+      required: false
+    - name: business_context
+      description: Business context and domain knowledge
+      required: false
+    - name: target_audience
+      description: Target audience for the analysis results
+      required: false
+    - name: complexity_level
+      description: Desired complexity level of the analysis
+      required: false
+    - name: focus_areas
+      description: Specific areas to focus the analysis on
+      required: false
