@@ -1,0 +1,97 @@
+apiVersion: mcp.io/v1
+kind: Prompt
+metadata:
+  name: performance-optimization-prompt
+  namespace: default
+spec:
+  description: "Analyze and provide performance optimization recommendations"
+  status: stable
+  owner: performance_team
+  template: |
+    # Performance Optimization Analysis
+    
+    Analyze the following system/application for performance optimization opportunities:
+    
+    **System**: {{system_name}}
+    **Performance Baseline**: {{current_performance}}
+    **Target Goals**: {{performance_goals}}
+    **Environment**: {{environment_details}}
+    
+    ## Current Implementation:
+    ```
+    {{current_implementation}}
+    ```
+    
+    ## Performance Metrics:
+    ```
+    {{performance_metrics}}
+    ```
+    
+    ## Load Patterns:
+    {{load_patterns}}
+    
+    ## Resource Constraints:
+    {{resource_constraints}}
+    
+    Please analyze and provide recommendations for:
+    
+    ### Application-Level Optimizations:
+    - Algorithm efficiency improvements
+    - Data structure optimizations
+    - Caching strategies
+    - Database query optimization
+    - Memory usage patterns
+    - CPU utilization improvements
+    
+    ### Infrastructure Optimizations:
+    - Scaling strategies (horizontal vs vertical)
+    - Resource allocation tuning
+    - Network optimization
+    - Storage performance
+    - Container resource limits
+    - Load balancing configuration
+    
+    ### Architecture Improvements:
+    - Microservices decomposition
+    - Asynchronous processing
+    - Event-driven patterns
+    - CDN utilization
+    - Edge computing opportunities
+    
+    ## Deliverables:
+    1. **Performance Assessment**: Current state analysis
+    2. **Bottleneck Identification**: Primary performance constraints
+    3. **Optimization Roadmap**: Prioritized improvements with impact estimates
+    4. **Implementation Plan**: Detailed steps for each optimization
+    5. **Monitoring Strategy**: KPIs and alerting for performance tracking
+    6. **Cost-Benefit Analysis**: Resource investment vs performance gains
+    
+    Focus Areas: {{focus_areas}}
+  arguments:
+    - name: system_name
+      description: Name of the system or application to optimize
+      required: true
+    - name: current_performance
+      description: Current performance metrics and baseline measurements
+      required: true
+    - name: performance_goals
+      description: Target performance goals and SLAs
+      required: true
+    - name: environment_details
+      description: Environment details (cloud provider, infrastructure, etc.)
+      required: true
+    - name: current_implementation
+      description: Current code, configuration, or architecture details
+      required: true
+    - name: performance_metrics
+      description: Performance monitoring data and metrics
+      required: false
+    - name: load_patterns
+      description: Traffic patterns and load characteristics
+      required: false
+    - name: resource_constraints
+      description: Known resource limitations or constraints
+      required: false
+    - name: focus_areas
+      description: Specific areas to focus optimization efforts on
+      required: false

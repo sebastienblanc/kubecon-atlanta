@@ -1,0 +1,109 @@
+apiVersion: mcp.io/v1
+kind: Prompt
+metadata:
+  name: api-design-reviewer-prompt
+  namespace: default
+spec:
+  description: "Review and provide recommendations for API design"
+  status: experimental
+  owner: api_team
+  template: |
+    # API Design Review
+    
+    Review the following API design and provide comprehensive feedback:
+    
+    **API Name**: {{api_name}}
+    **API Type**: {{api_type}}
+    **Version**: {{api_version}}
+    **Target Audience**: {{target_audience}}
+    
+    ## API Specification:
+    ```
+    {{api_specification}}
+    ```
+    
+    ## Use Cases:
+    {{use_cases}}
+    
+    ## Design Goals:
+    {{design_goals}}
+    
+    Please review the following aspects:
+    
+    ### RESTful Design Principles:
+    - Resource modeling and naming
+    - HTTP method usage
+    - Status code appropriateness
+    - URI design and hierarchy
+    - Statelessness
+    
+    ### API Contract:
+    - Request/response schemas
+    - Error handling patterns
+    - Validation rules
+    - Content negotiation
+    - Pagination strategies
+    
+    ### Developer Experience:
+    - API discoverability
+    - Documentation completeness
+    - Example usage
+    - SDK considerations
+    - Testing approaches
+    
+    ### Security Considerations:
+    - Authentication mechanisms
+    - Authorization patterns
+    - Rate limiting
+    - Input validation
+    - Data privacy
+    
+    ### Performance & Scalability:
+    - Caching strategies
+    - Bulk operations
+    - Filtering and searching
+    - Compression
+    - Async operation support
+    
+    ### Versioning & Evolution:
+    - Versioning strategy
+    - Backward compatibility
+    - Deprecation policies
+    - Migration paths
+    
+    ## Deliverables:
+    1. **Design Assessment**: Overall API design evaluation
+    2. **Standards Compliance**: Adherence to {{api_standards}} standards
+    3. **Improvement Recommendations**: Specific actionable feedback
+    4. **Best Practices**: Industry best practices application
+    5. **Implementation Guidance**: Technical implementation suggestions
+    
+    Consider API maturity level: {{maturity_level}}
+  arguments:
+    - name: api_name
+      description: Name of the API being reviewed
+      required: true
+    - name: api_type
+      description: Type of API (REST, GraphQL, gRPC, etc.)
+      required: true
+    - name: api_version
+      description: Version of the API being reviewed
+      required: true
+    - name: target_audience
+      description: Intended users/consumers of the API
+      required: true
+    - name: api_specification
+      description: API specification (OpenAPI, GraphQL schema, etc.)
+      required: true
+    - name: use_cases
+      description: Primary use cases and scenarios for the API
+      required: true
+    - name: design_goals
+      description: Design goals and requirements for the API
+      required: true
+    - name: api_standards
+      description: API standards or guidelines to evaluate against
+      required: false
+    - name: maturity_level
+      description: API maturity level (prototype, beta, stable)
+      required: false

@@ -1,0 +1,85 @@
+apiVersion: mcp.io/v1
+kind: Prompt
+metadata:
+  name: security-analysis-prompt
+  namespace: default
+spec:
+  description: "Perform security analysis on code, configurations, or infrastructure"
+  status: stable
+  owner: security_team
+  template: |
+    # Security Analysis
+    
+    Perform a comprehensive security analysis of the following:
+    
+    **Analysis Type**: {{analysis_type}}
+    **Target**: {{target_name}}
+    **Scope**: {{analysis_scope}}
+    
+    ## Content to Analyze:
+    ```
+    {{content_to_analyze}}
+    ```
+    
+    ## Security Requirements:
+    {{security_requirements}}
+    
+    ## Compliance Standards:
+    {{compliance_standards}}
+    
+    Please analyze for:
+    
+    ### Code Security Issues:
+    - SQL injection vulnerabilities
+    - Cross-site scripting (XSS)
+    - Authentication and authorization flaws
+    - Input validation issues
+    - Cryptographic weaknesses
+    - Dependency vulnerabilities
+    
+    ### Infrastructure Security:
+    - Network security configurations
+    - Access control policies
+    - Encryption in transit and at rest
+    - Secret management
+    - Container security
+    - Kubernetes security best practices
+    
+    ### Configuration Security:
+    - Hardening recommendations
+    - Privilege escalation risks
+    - Default credentials
+    - Exposed services
+    - Security headers and policies
+    
+    ## Output Format:
+    1. **Executive Summary**: High-level security posture
+    2. **Critical Findings**: Immediate security concerns
+    3. **Detailed Analysis**: Comprehensive security review
+    4. **Remediation Plan**: Step-by-step fixes prioritized by risk
+    5. **Best Practices**: Recommendations for ongoing security
+    6. **Compliance Gap Analysis**: If compliance standards specified
+    
+    Risk Level: {{risk_tolerance}}
+  arguments:
+    - name: analysis_type
+      description: Type of security analysis (code, infrastructure, configuration)
+      required: true
+    - name: target_name
+      description: Name or identifier of the target being analyzed
+      required: true
+    - name: analysis_scope
+      description: Scope of the security analysis
+      required: true
+    - name: content_to_analyze
+      description: Code, configuration files, or infrastructure details to analyze
+      required: true
+    - name: security_requirements
+      description: Specific security requirements or policies to check against
+      required: false
+    - name: compliance_standards
+      description: Compliance standards to evaluate against (SOC2, GDPR, HIPAA, etc.)
+      required: false
+    - name: risk_tolerance
+      description: Organization's risk tolerance level (low, medium, high)
+      required: false
