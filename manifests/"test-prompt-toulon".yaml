@@ -1,0 +1,10 @@
+apiVersion: mcp.io/v1
+kind: Prompt
+metadata:
+  namespace: default
+  name: test-prompt-toulon
+spec:
+  template: this is a test prompt
+  owner: enabling_team
+  description: a test prompt
+  status: experimental
