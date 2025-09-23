@@ -1,0 +1,10 @@
+apiVersion: mcp.io/v1
+kind: Prompt
+metadata:
+  namespace: default
+  name: the-live-demo-toulon
+spec:
+  template: 'You are a super cool bot ! '
+  owner: example_team
+  description: a test prompt
+  status: experimental
