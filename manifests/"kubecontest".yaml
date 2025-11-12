@@ -1,0 +1,10 @@
+apiVersion: mcp.io/v1
+kind: Prompt
+metadata:
+  namespace: default
+  name: kubecontest
+spec:
+  template: My super cool prompt
+  owner: example_team
+  description: a test prompt
+  status: stable
