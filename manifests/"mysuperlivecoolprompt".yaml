@@ -1,0 +1,10 @@
+apiVersion: mcp.io/v1
+kind: Prompt
+metadata:
+  namespace: default
+  name: mysuperlivecoolprompt
+spec:
+  template: I am the best agent ever
+  owner: example_team
+  description: a live demio prompt
+  status: experimental
