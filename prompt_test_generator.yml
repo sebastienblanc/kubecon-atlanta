@@ -1,0 +1,64 @@
+apiVersion: mcp.io/v1
+kind: Prompt
+metadata:
+  name: test-case-generator-prompt
+  namespace: default
+spec:
+  description: "Generate comprehensive test cases for software components"
+  status: stable
+  owner: qa_team
+  template: |
+    # Test Case Generator
+    
+    Generate comprehensive test cases for the following component:
+    
+    **Component**: {{component_name}}
+    **Functionality**: {{functionality_description}}
+    **Test Level**: {{test_level}}
+    
+    ## Code/Specification:
+    ```
+    {{source_code}}
+    ```
+    
+    ## Test Requirements:
+    - Cover all happy path scenarios
+    - Include edge cases and boundary conditions
+    - Test error handling and failure scenarios
+    - Validate input validation
+    - Test performance characteristics (if applicable)
+    - Include integration test scenarios
+    
+    ## Test Framework: {{test_framework}}
+    
+    Please generate:
+    1. Test plan overview
+    2. Detailed test cases with:
+       - Test case ID and name
+       - Prerequisites
+       - Test steps
+       - Expected results
+       - Test data requirements
+    3. Mock/stub requirements
+    4. Performance test considerations
+    
+    Focus on {{focus_areas}} if specified.
+  arguments:
+    - name: component_name
+      description: Name of the component being tested
+      required: true
+    - name: functionality_description
+      description: Description of the functionality to test
+      required: true
+    - name: source_code
+      description: Source code or specifications to generate tests for
+      required: true
+    - name: test_level
+      description: Level of testing (unit, integration, e2e, etc.)
+      required: true
+    - name: test_framework
+      description: Testing framework to use (Jest, JUnit, pytest, etc.)
+      required: false
+    - name: focus_areas
+      description: Specific areas to focus testing on
+      required: false

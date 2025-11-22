@@ -1,0 +1,79 @@
+apiVersion: mcp.io/v1
+kind: Prompt
+metadata:
+  name: deployment-troubleshooter-prompt
+  namespace: default
+spec:
+  description: "Troubleshoot Kubernetes deployment issues and provide solutions"
+  status: stable
+  owner: platform_team
+  template: |
+    # Deployment Troubleshooter
+    
+    Help troubleshoot the following Kubernetes deployment issue:
+    
+    **Application**: {{app_name}}
+    **Namespace**: {{namespace}}
+    **Environment**: {{environment}}
+    
+    ## Issue Description:
+    {{issue_description}}
+    
+    ## Current Status:
+    ```yaml
+    {{current_status}}
+    ```
+    
+    ## Recent Logs:
+    ```
+    {{recent_logs}}
+    ```
+    
+    ## Resource Manifests:
+    ```yaml
+    {{resource_manifests}}
+    ```
+    
+    ## Additional Context:
+    {{additional_context}}
+    
+    Please provide:
+    1. **Root Cause Analysis**: Identify the most likely cause
+    2. **Immediate Actions**: Steps to resolve the issue quickly
+    3. **Diagnostic Commands**: kubectl commands to gather more information
+    4. **Prevention Strategies**: How to prevent this issue in the future
+    5. **Monitoring Recommendations**: What to monitor to catch this earlier
+    
+    Consider common Kubernetes issues:
+    - Resource constraints (CPU, Memory, Storage)
+    - Image pull problems
+    - Network connectivity
+    - RBAC and permissions
+    - ConfigMap/Secret issues
+    - Node availability
+    - Ingress/Service configuration
+  arguments:
+    - name: app_name
+      description: Name of the application having deployment issues
+      required: true
+    - name: namespace
+      description: Kubernetes namespace where the issue occurs
+      required: true
+    - name: environment
+      description: Environment where the issue occurs (dev, staging, prod)
+      required: true
+    - name: issue_description
+      description: Description of the deployment issue
+      required: true
+    - name: current_status
+      description: Current status from kubectl describe or get commands
+      required: false
+    - name: recent_logs
+      description: Recent application or system logs
+      required: false
+    - name: resource_manifests
+      description: YAML manifests of the affected resources
+      required: false
+    - name: additional_context
+      description: Any additional context about the issue
+      required: false

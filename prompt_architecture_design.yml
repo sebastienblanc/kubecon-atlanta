@@ -1,0 +1,120 @@
+apiVersion: mcp.io/v1
+kind: Prompt
+metadata:
+  name: architecture-design-prompt
+  namespace: default
+spec:
+  description: "Design and review software architecture for complex systems"
+  status: experimental
+  owner: architecture_team
+  template: |
+    # Architecture Design Assistant
+    
+    Help design or review the architecture for the following system:
+    
+    **System Name**: {{system_name}}
+    **Domain**: {{business_domain}}
+    **Scale Requirements**: {{scale_requirements}}
+    **Budget Constraints**: {{budget_constraints}}
+    
+    ## Functional Requirements:
+    {{functional_requirements}}
+    
+    ## Non-Functional Requirements:
+    {{non_functional_requirements}}
+    
+    ## Current Architecture (if exists):
+    ```
+    {{current_architecture}}
+    ```
+    
+    ## Constraints and Assumptions:
+    {{constraints_assumptions}}
+    
+    ## Technology Preferences:
+    {{technology_preferences}}
+    
+    Please provide architecture guidance covering:
+    
+    ### System Design:
+    - High-level architecture overview
+    - Component decomposition
+    - Service boundaries
+    - Data flow diagrams
+    - Integration patterns
+    
+    ### Technology Stack:
+    - Programming languages and frameworks
+    - Database selection and design
+    - Messaging and communication patterns
+    - Infrastructure and deployment
+    - Third-party service integration
+    
+    ### Scalability & Performance:
+    - Horizontal vs vertical scaling strategies
+    - Caching layers and strategies
+    - Load balancing approaches
+    - Performance bottleneck identification
+    - Capacity planning guidelines
+    
+    ### Reliability & Resilience:
+    - Fault tolerance patterns
+    - Circuit breaker implementations
+    - Disaster recovery strategies
+    - Backup and restore procedures
+    - Health check and monitoring
+    
+    ### Security Architecture:
+    - Authentication and authorization
+    - Data encryption strategies
+    - Network security design
+    - Secure communication protocols
+    - Compliance considerations
+    
+    ### Operational Considerations:
+    - Deployment strategies
+    - Monitoring and observability
+    - Logging and debugging
+    - Configuration management
+    - Cost optimization
+    
+    ## Deliverables:
+    1. **Architecture Decision Records (ADRs)**
+    2. **System diagrams and documentation**
+    3. **Technology evaluation matrix**
+    4. **Implementation roadmap**
+    5. **Risk assessment and mitigation**
+    6. **Operational runbooks**
+    
+    Architecture Style Preference: {{architecture_style}}
+  arguments:
+    - name: system_name
+      description: Name of the system being designed
+      required: true
+    - name: business_domain
+      description: Business domain or industry context
+      required: true
+    - name: scale_requirements
+      description: Expected scale and performance requirements
+      required: true
+    - name: functional_requirements
+      description: Core functional requirements and features
+      required: true
+    - name: non_functional_requirements
+      description: Performance, security, reliability requirements
+      required: true
+    - name: budget_constraints
+      description: Budget limitations and cost considerations
+      required: false
+    - name: current_architecture
+      description: Existing architecture if this is a redesign
+      required: false
+    - name: constraints_assumptions
+      description: Technical and business constraints
+      required: false
+    - name: technology_preferences
+      description: Preferred technologies or technology constraints
+      required: false
+    - name: architecture_style
+      description: Preferred architecture style (microservices, monolith, etc.)
+      required: false
