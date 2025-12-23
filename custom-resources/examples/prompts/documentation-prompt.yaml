@@ -1,0 +1,36 @@
+apiVersion: mcp.io/v1
+kind: Prompt
+metadata:
+  name: documentation-prompt
+  namespace: default
+spec:
+  description: "A prompt template for generating technical documentation"
+  status: stable
+  owner: documentation_team
+  template: |
+    # Documentation Generation Prompt
+    
+    Please create comprehensive documentation for:
+    
+    **Component**: {{component_name}}
+    **Type**: {{doc_type}}
+    **Audience**: {{target_audience}}
+    
+    Include the following sections:
+    - Overview and purpose
+    - Installation/setup instructions
+    - Usage examples
+    - Configuration options
+    - Troubleshooting guide
+    
+    Make the documentation clear, concise, and actionable.
+  arguments:
+    - name: component_name
+      description: The name of the component to document
+      required: true
+    - name: doc_type
+      description: Type of documentation (API, User Guide, Installation, etc.)
+      required: true
+    - name: target_audience
+      description: The intended audience for the documentation
+      required: false

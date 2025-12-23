@@ -1,0 +1,35 @@
+apiVersion: mcp.io/v1
+kind: Prompt
+metadata:
+  name: testing-prompt
+  namespace: default
+spec:
+  description: "A prompt template for generating test cases and test plans"
+  status: experimental
+  owner: qa_team
+  template: |
+    # Test Generation Prompt
+    
+    Please create comprehensive test cases for:
+    
+    **Feature**: {{feature_name}}
+    **Type**: {{test_type}}
+    **Priority**: {{priority_level}}
+    
+    Generate tests covering:
+    - Happy path scenarios
+    - Edge cases and boundary conditions
+    - Error handling and failure scenarios
+    - Performance and load considerations
+    
+    Provide clear test steps, expected results, and acceptance criteria.
+  arguments:
+    - name: feature_name
+      description: The feature or functionality to test
+      required: true
+    - name: test_type
+      description: Type of testing (unit, integration, e2e, performance)
+      required: true
+    - name: priority_level
+      description: Priority level of the test cases
+      required: false

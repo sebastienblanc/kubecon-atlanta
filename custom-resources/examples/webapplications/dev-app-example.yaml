@@ -1,0 +1,16 @@
+apiVersion: platform.company.com/v1
+kind: WebApplication
+metadata:
+  name: example-dev-app
+  namespace: development
+spec:
+  environment: dev
+  replicaCount: 1
+  databaseSelector:
+    matchLabels:
+      type: postgres
+      environment: dev
+  cacheSelector:
+    matchLabels:
+      type: redis
+      environment: dev

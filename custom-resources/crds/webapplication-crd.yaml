@@ -1,0 +1,139 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: webapplications.platform.company.com
+spec:
+  group: platform.company.com
+  versions:
+  - name: v1
+    served: true
+    storage: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        required: ["spec"]
+        properties:
+          spec:
+            type: object
+            required: ["environment", "databaseSelector"]
+            properties:
+              environment:
+                type: string
+                enum: ["dev", "staging", "prod"]
+              
+              databaseSelector:
+                type: object
+                required: ["matchLabels"]
+                properties:
+                  matchLabels:
+                    type: object
+                    minProperties: 1
+                    maxProperties: 20
+                    additionalProperties:
+                      type: string
+                      maxLength: 63
+                  matchExpressions:
+                    type: array
+                    maxItems: 5
+                    items:
+                      type: object
+                      required: ["key", "operator"]
+                      properties:
+                        key:
+                          type: string
+                          maxLength: 253
+                        operator:
+                          type: string
+                          enum: ["In", "NotIn", "Exists", "DoesNotExist"]
+                        values:
+                          type: array
+                          maxItems: 10
+                          items:
+                            type: string
+                            maxLength: 63
+
+              cacheSelector:
+                type: object
+                properties:
+                  matchLabels:
+                    type: object
+                    maxProperties: 20
+                    additionalProperties:
+                      type: string
+                      maxLength: 63
+                  matchExpressions:
+                    type: array
+                    maxItems: 5
+                    items:
+                      type: object
+                      required: ["key", "operator"]
+                      properties:
+                        key:
+                          type: string
+                          maxLength: 253
+                        operator:
+                          type: string
+                          enum: ["In", "NotIn", "Exists", "DoesNotExist"]
+                        values:
+                          type: array
+                          maxItems: 10
+                          items:
+                            type: string
+                            maxLength: 63
+
+              replicaCount:
+                type: integer
+                minimum: 1
+                maximum: 100
+
+          status:
+            type: object
+            properties:
+              phase:
+                type: string
+                enum: ["Pending", "Running", "Failed", "Succeeded"]
+              selectedResources:
+                type: object
+                properties:
+                  databases:
+                    type: array
+                    maxItems: 50
+                    items:
+                      type: string
+                      maxLength: 253
+                  caches:
+                    type: array
+                    maxItems: 50
+                    items:
+                      type: string
+                      maxLength: 253
+              conditions:
+                type: array
+                maxItems: 10
+                items:
+                  type: object
+                  required: ["type", "status"]
+                  properties:
+                    type:
+                      type: string
+                      maxLength: 100
+                    status:
+                      type: string
+                      enum: ["True", "False", "Unknown"]
+                    reason:
+                      type: string
+                      maxLength: 100
+                    message:
+                      type: string
+                      maxLength: 500
+                    lastTransitionTime:
+                      type: string
+                      format: date-time
+  scope: Namespaced
+  names:
+    plural: webapplications
+    singular: webapplication
+    kind: WebApplication
+    shortNames:
+    - webapp
+    - webapps
